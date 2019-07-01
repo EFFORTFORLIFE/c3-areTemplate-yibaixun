@@ -1,0 +1,101 @@
+.screen1{
+    width:100%;
+    background:#6a5af5;
+    padding:4rem 0;
+}
+.screen1-content{
+    width:85%;
+    display:flex;
+    justify-content: space-between;
+    margin:0 auto;
+    overflow:hidden;
+}
+.screen1-content div{
+    width:40%;
+    float:left;
+}
+.screen1-content img{
+    width:100%;
+    transform:translateX(-4rem);
+    animation:imgkeyframes 1s;
+    animation-fill-mode:forwards;
+}
+@keyframes imgkeyframes {
+    from{
+        transform:translateX(-4rem);
+    }
+    to{
+        transform:translateX(0px);
+    }
+}
+.screen2 img{
+    width:100%;
+    transform:translateX(-4rem);
+    animation:img2keyframes 1s;
+    animation-fill-mode:forwards;
+}
+.screen2>div,.screen3>div,.screen4>div{
+    overflow:hidden;
+}
+@keyframes img2keyframes {
+    from{
+        transform:translateX(-4rem);
+    }
+    to{
+        transform:translateX(0px);
+    }
+}
+.screen1-content div:nth-of-type(2){
+    transform:translateX(4rem);
+    animation:screen1divframes 1s;
+    animation-fill-mode:forwards;
+}
+@keyframes screen1divframes {
+    from{
+        transform:translate(4rem);
+    }
+    to{
+        transform:translate(0px);
+    }
+}
+.screen2>div>div:nth-of-type(1){
+    transform:translateX(4rem);
+    animation:screen2divframes 1s;
+    animation-fill-mode:forwards;
+}
+@keyframes screen2divframes {
+    from{
+        transform:translate(4rem);
+    }
+    to{
+        transform:translate(0px);
+    }
+}
+.screen2{
+    width:100%;
+    background:#d2e2e2;
+    padding:4rem 0;
+}
+.screen3{
+    width:100%;
+    background:#a1cccc;
+    padding:4rem 0;
+}
+.screen4{
+    width:100%;
+    background:#131717;
+    padding:4rem 0;
+}
+.screen2>div,.screen3>div,.screen4>div{
+    width:85%;
+    margin:0 auto;
+    display:flex;
+    justify-content: space-between;
+}
+.screen2>div>div,.screen3>div>div,.screen4>div>div{
+    width:40%;
+    float:left;
+}
+.screen2 img,.screen3 img,.screen4 img{
+    max-width:100%;
+}

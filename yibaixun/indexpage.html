@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="./js/template-web.js"></script>
+    <link rel="stylesheet" href="css/public.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+    <title>index</title>
+    <script type="text/html" id="test">
+        <% for(i=0;i<temp.length;i++) {%>
+            <li>
+                <span><%=temp[i].num%></span>
+                <p><%=temp[i].pvalue%></p>
+            </li>
+        <%}%>
+    </script>
+    <script type="text/html" id="customerTemp">
+        <%for(i=0;i<customerdata.length;i++){%>
+        <li>
+            <img  src=<%=customerdata[i].pic%>>
+            <span><%=customerdata[i].t%></span>
+        </li>
+        <%}%>
+    </script>
+    <script>
+        window.onload = function(){
+            var temData = {};
+            var xhr = null;
+            var xhr2 = null;
+            var str;
+            var data1;
+            // =[{num:'10',pvalue:'10年高端网站设计经验'},{num:'28+',pvalue:'28+政府单位的认可'},{num:'56+',pvalue:'56+上市公司的选择'},{num:'800+',pvalue:'800+品牌客户的选择'}]
+            //这里的json数据就可以用单引号，但php中就不可以用单引号
+            var ach_ul = document.querySelector("#achievement-ul");
+            if(window.XMLHttpRequest){
+                xhr = new XMLHttpRequest();
+                xhr2 = new XMLHttpRequest();
+            }else{
+                xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                xhr2 = new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            var dataid="achievement";
+            xhr.open("get","./php/indexdata.php?dataname="+dataid,true);
+            xhr.send(null);
+            xhr.onreadystatechange=function(){
+                if(xhr.readyState==4){
+                    if(xhr.status==200){
+                        str=xhr.responseText;//这是一个字符串
+                        data1 = JSON.parse(str);
+                        temData.temp = data1;
+                        ach_ul.innerHTML = template("test",temData);
+                    }
+                }
+            }
+            xhr2.open("get","./php/customerdata.php",true);
+            xhr2.send(null);
+            xhr2.onreadystatechange  = function(){
+                if(xhr2.readyState==4&&xhr2.status==200){
+                    var customerres = JSON.parse(xhr2.responseText);
+                    console.log(customerres);
+                    temData.customerdata = customerres;
+                    document.querySelector("#customer_ul").innerHTML=template("customerTemp",temData);
+                }
+            }
+        };
+        
+    </script>
+</head>
+<body>
+<nav>
+    <img src="imgs/indexImgs/logo.png"/>
+    <ul>
+        <li><a href="indexpage.html">首页</a></li><i>|</i>
+        <li><a href="website.html">网站建设</a></li><i>|</i>
+        <li><a href="servise.html">产品服务</a></li><i>|</i>
+        <li><a href="success.html">成功案例</a></li><i>|</i>
+        <li><a href="solution.html">解决方案</a></li>
+    </ul>
+</nav>
+<section class="slideScreen">
+    <div>
+        <img src="imgs/indexImgs/screen1.png"/>
+        <p>profession</p>
+    </div>
+</section>
+<section class="achievement">
+    <div class="achieve-title">
+        <span>优势之道·素谓天成</span>
+        <p>用心、用责、 用情、人无我有、人优我特；敬天惜福，爱人有度。</p>
+    </div>
+    <ul id="achievement-ul"></ul>
+</section>
+<section class="service">
+    <div class="service-title">
+        <span>服务之心·海纳百川</span>
+        <p>以客户需求为基础，以自身理念方向，成就客户，即成就易百讯!</p>
+    </div>
+    <div class="service-content"></div>
+</section>
+<section class="brand">
+    <div class="brand-title">
+        <span>品牌之魂·提升商业价值</span>
+        <p>您的眼光高度，决定您的品牌厚度!</p>
+    </div>
+    <div class="brand-content">
+        <ul>
+            <li>
+                <img src="imgs/indexImgs/brand.jpg"/>
+                <span>中房梧桐企业管理有限公司-梧桐俱乐部</span>
+            </li>
+            <li>
+                <img src="imgs/indexImgs/item1.jpg"/>
+                <span>中房梧桐企业管理有限公司-梧桐俱乐部</span>
+            </li>
+            <li>
+                <img src="imgs/indexImgs/item2.jpg"/>
+                <span>中房梧桐企业管理有限公司-梧桐俱乐部</span>
+            </li>
+            <li>
+                <img src="imgs/indexImgs/item3.jpg"/>
+                <span>中房梧桐企业管理有限公司-梧桐俱乐部</span>
+            </li>
+        </ul>
+    </div>
+</section>
+<section class="customer">
+    <div class="brand-title">
+        <span>风雨同行·共同成长</span>
+        <p>现在，服务的上千家客户与我们一路同行，见证我们的成长；未来，我们一起分享成功的喜悦。</p>
+    </div>
+    <ul id="customer_ul"></ul>
+</section>
+<div style="clear:both;"></div>
+<section class="solution-outer">
+    <section class="solution">
+        <div class="solution-detail">
+            <div>
+                <h2>提供专业的行业门户网站建设解决方案</h2>
+                <span>网站定位于企业营销型；我们现在所面对的挑战问题是：对于从业者而言，盈利与融资无疑是获得更大发展空间的助推器，缺乏其中任何一个，或许还能走下去，如果两者都不成熟，那么，发展遭遇到天花板似乎成为一种必然。</span>
+            </div>
+        </div>
+        <div class="solution-items">
+            <ul>
+                <li>
+                    <img src="imgs/indexImgs/solution1.png"/>
+                    <span>企业网站建设解决方案</span>
+                </li>
+                <li>
+                    <img src="imgs/indexImgs/solution1.png"/>
+                    <span>企业网站建设解决方案</span>
+                </li>
+                <li>
+                    <img src="imgs/indexImgs/solution1.png"/>
+                    <span>企业网站建设解决方案</span>
+                </li>
+                <li>
+                    <img src="imgs/indexImgs/solution1.png"/>
+                    <span>企业网站建设解决方案</span>
+                </li>
+            </ul>
+        </div>
+    </section>
+</section>
+<footer>
+    <p>Copyright @ 2008-2019 Yibaixun Technology Co., LTD. All Rights Reserved.    </p>
+</footer>
+</body>
+</html>
